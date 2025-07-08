@@ -439,3 +439,4 @@ void ReverseDoublyLinkedList(DoubleLinkedList* list){
 	list->head=list->tail;
 	list->tail=temp;
 }
+//Test
