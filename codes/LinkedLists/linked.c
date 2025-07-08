@@ -5,6 +5,7 @@
 
 int main(){
 	int A[]={1,3,6,7,8,9};
+	/*
 	node* head=CreateFromArray(A,6);
 	display(head);
 	printf("%d\n",llen(head));
@@ -36,4 +37,17 @@ int main(){
 	DisplayCircular(circ);
 	DeleteFromCircular(&circ,5);
 	DisplayCircular(circ);
+	*/
+	
+	DoubleLinkedList* List=CreateDoubleFromArray(A,6);
+	DisplayDouble(List);
+	InsertDouble(List,0,5);
+	InsertDouble(List,0,0);
+	DisplayDouble(List);
+	DeleteDouble(List,0);
+	DisplayDouble(List);
+	ReverseDoublyLinkedList(List);
+	DisplayDouble(List);
+	ReverseDoublyLinkedList(List);
+	DisplayDouble(List);
 }

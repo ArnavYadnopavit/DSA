@@ -20,7 +20,7 @@ typedef struct DoubleLinkedList{
 	doublenode* head;
 	doublenode* tail;
 	int len;
-}
+}DoubleLinkedList;
 
 node* NewNode(int x);
 node* CreateFromArray(int* A,int n);
@@ -30,7 +30,7 @@ int sum(node* head);
 int lmax(node* head);
 node* LinearSearch(node* head,int key);
 void insert(node** head,int key);
-void delete(node** head,int key);
+void deleteNode(node** head,int key);
 void RemoveDuplicates(node** head);
 void Reverse(node** head);
 void RecursiveReverse(node** head,node* q,node* p);
@@ -40,5 +40,9 @@ node* CreateCircularFromArray(int* A,int n);
 void DisplayCircular(node* head);
 void InsertInCircular(node** head,int value,int index);
 void DeleteFromCircular(node** head,int key);
-
+DoubleLinkedList* CreateDoubleFromArray(int* A,int len);
+void DisplayDouble(DoubleLinkedList* list);
+void InsertDouble(DoubleLinkedList* list,int x,int index);
+void DeleteDouble(DoubleLinkedList* list,int key);
+void ReverseDoublyLinkedList(DoubleLinkedList* list);
 #endif // MYLIB_H

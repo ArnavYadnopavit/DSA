@@ -102,7 +102,7 @@ void insert(node** head,int key){
 
 }
 
-void delete(node** head,int key){
+void deleteNode(node** head,int key){
 	if((*head)==NULL){
 		printf("List is empty");
 		return;
@@ -326,8 +326,116 @@ doublenode* CreateDoubleNode(int x){
 	new->x=x;
 }
 
-DoubleLinkedList* CreateDoubleFromArrray(int* A,int len){
+DoubleLinkedList* CreateDoubleFromArray(int* A,int len){
 	DoubleLinkedList* ret=(DoubleLinkedList*)malloc(sizeof(DoubleLinkedList));
 	InitialiseDouble(ret);
-	for(int i=
+	ret->head=CreateDoubleNode(A[0]);
+	doublenode* temp=ret->head->next,*prev=ret->head;
+	for(int i=1;i<len;i++){
+		temp=CreateDoubleNode(A[i]);
+		prev->next=temp;
+		temp->prev=prev;
+		prev=temp;
+		temp=temp->next;
+	}
+	ret->tail=prev;
+	ret->len=len;
+	return ret;
+}
+
+void DisplayDouble(DoubleLinkedList* list){
+	doublenode* temp=list->head;
+	for(int i=0;i<list->len;i++){
+		printf("%d ",temp->x);
+		temp=temp->next;
+	}
+	printf("\n");
+}
+
+void InsertDouble(DoubleLinkedList* list,int x,int index){
+	doublenode* new=CreateDoubleNode(x);
+	if(index==0){
+		new->next=list->head;
+		list->head->prev=new;
+		list->head=new;
+		list->len++;
+	}
+	else if(index==list->len){
+		list->tail->next=new;
+		new->prev=list->tail;
+		list->tail=new;
+		list->len++;
+	}
+	else if(index<list->len){
+		doublenode* temp,*prev;
+		if(index<list->len/2){
+			temp=list->head;
+			for(int i=0;i<index;i++){
+				temp=temp->next;
+			}
+			prev=temp->prev;
+
+			prev->next=new;
+			new->next=temp;
+			temp->prev=new;
+			new->prev=prev;
+		}
+		else{
+			temp=list->tail;
+			for(int i=list->len-1;i>=index;i--){
+				temp=temp->prev;
+			}
+			prev=temp->prev;
+			
+			prev->next=new;
+			new->next=temp;
+			temp->prev=new;
+			new->prev=prev;
+		}
+		list->len++;
+	}
+}
+
+void DeleteDouble(DoubleLinkedList* list,int key){
+	if(key==list->head->x){
+		list->head=list->head->next;
+		free(list->head->prev);
+		list->head->prev=NULL;
+		list->len--;
+	}
+
+	doublenode* temp=list->head->next,*prev=list->head;
+	while (temp!=NULL)	{
+		if(temp->x==key){
+			prev->next=temp->next;
+			temp->next->prev=prev;
+			if(temp==list->tail) list->tail=prev;
+			free(temp);
+			temp=prev->next;
+			list->len--;
+		}
+		else{
+			prev=temp;
+			temp=temp->next;
+		}
+	}
+
+return;
+}
+
+void swap(doublenode** a,doublenode** b){
+	doublenode* temp=*a;
+	*a=*b;
+	*b=temp;
+}
+
+void ReverseDoublyLinkedList(DoubleLinkedList* list){
+	doublenode* temp=list->tail;
+	while(temp!=NULL){
+		swap(&temp->next,&temp->prev);
+		temp=temp->next;
+	}
+	temp=list->head;
+	list->head=list->tail;
+	list->tail=temp;
 }
