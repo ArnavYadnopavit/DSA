@@ -22,4 +22,5 @@ void Insert(BST *b,int x);
 void preorder(node* root);
 void inorder(node* root);
 void postorder(node* root);
+node* Search(BST* b, int key);
 #endif // MYLIB_H

@@ -15,4 +15,10 @@ int main(){
     printf("\n");
     postorder(bst->root);
     printf("\n");
+    for(int i=0;i<SIZE;i++){
+        if(Search(bst,arr[i]))printf("%d is found\n",Search(bst,arr[i])->x);
+        else printf("Not found\n");
+    }
+    if(Search(bst,1))printf("%d is found\n",Search(bst,1)->x);
+    else printf("Not found\n");
 }
