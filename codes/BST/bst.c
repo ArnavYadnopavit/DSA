@@ -21,4 +21,8 @@ int main(){
     }
     if(Search(bst,1))printf("%d is found\n",Search(bst,1)->x);
     else printf("Not found\n");
+    printf("Height of tree %d\n",height(bst));
+    DeleteNode(bst,2);
+    printf("hi\n");
+    preorder(bst->root);
 }

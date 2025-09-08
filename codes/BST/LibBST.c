@@ -51,36 +51,92 @@ node* Search(BST* b, int key){
     return temp;
 }
 
-node* Deletehelp2node(node* t){
-    node* temp=
+int rcount(node* p){
+    int x,y;
+    if(p){
+        x=rcount(p->l);
+        y=rcount(p->r);
+        return x+y+1; 
+    }
+    else return 0;
 }
 
-void DeleteNode(BST* b, int key){
-    if(b->root->x=key){
-        if(b->root->l){
-            if(b->root->r){
-                node* imm=Deletehelp2node(b->root);
-                b->root=imm;
-                return;
-            }
-            b->root=b->root->l;
-            return;
+int count(BST* b){
+    return rcount(b->root);
+}
+
+int rheight(node* p){
+    int x,y;
+    if(p){
+        x=rheight(p->l);
+        y=rheight(p->r);
+        if(x>y) return x+1;
+        else return y+1;
+    }
+    else return 0;
+}
+
+int height(BST* b){
+    return rheight(b->root);
+}
+
+node* inPre(node* t){ //Give t->l into this
+    if(t==NULL){
+        return NULL;
+    }
+    else if (t->r==NULL){
+        return t;
+    }
+    else inPre(t->r);
+}
+
+node* inSuc(node* t){ //Give t->r into this
+    if(t==NULL){
+        return NULL;
+    }
+    else if (t->l==NULL){
+        return t;
+    }
+    else inPre(t->r);
+}
+
+node* rDelete(node* t,int key){
+    if(t==NULL){
+        return NULL;
+    }
+    else if(t->l==NULL && t->l==NULL && t->x==key){
+        free(t);
+        return NULL;
+
+    }
+    else{
+        if(key<t->x){
+            rDelete(t->l,key);
         }
+        else if(key>t->x) rDelete(t->r,key);
         else{
-            b->root=b->root->r;
-            return;
+            if(rheight(t->l)>rheight(t->l)){
+                node* rep=inPre(t->l);
+                int temp=rep->x;
+                rep->x=t->x;
+                t->x=temp;
+                rDelete(rep,key);
+            }
+            else{
+                node* rep=inSuc(t->r);
+                int temp=rep->x;
+                rep->x=t->x;
+                t->x=temp;
+                rDelete(rep,key);
+            }
         }
-    }
-    node* temp=b->root;
-    node * prev=temp;
-    while(temp){
-    if(temp->x==key){
-        if(temp->l){
 
-        }
     }
+    return NULL;
 }
 
+node* DeleteNode(BST* b, int key){
+    rDelete(b->root,key);
 }
 
 void preorder(node* root){
