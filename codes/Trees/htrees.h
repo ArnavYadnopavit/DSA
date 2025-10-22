@@ -1,7 +1,6 @@
 #ifndef MYLIB_H
 #define MYLIB_H
 
-// Include standard libraries if needed
 #include <stdio.h>
 #include <stdlib.h>
 
