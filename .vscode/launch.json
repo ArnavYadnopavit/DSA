@@ -5,7 +5,7 @@
             "name": "(gdb) Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "/home/arnav/git/DSA/codes/BST/bst",
+            "program": "/home/arnav/git/DSA/codes/hash/a.out",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
