@@ -46,7 +46,7 @@ int BalanceFactor(avl *p){
 
 avl* LLRotation(avl* p,root* b){
     avl* pl=p->l;
-    avl* plr=p->r;
+    avl* plr=pl->r;
 
     pl->r=p;
     p->l=plr;
@@ -60,45 +60,50 @@ avl* LLRotation(avl* p,root* b){
 
 avl* LRRotation(avl* p,root* b){
     avl* pl=p->l;
-    avl* plr=p->r;
+    avl* plr=pl->r;
 
-    pl->r=p;
-    p->l=plr;
+    pl->r=plr->l;
+    p->l=plr->r;
+    plr->l=pl;
+    plr->r=p;
     p->h=NodeHeight(p);
     pl->h=NodeHeight(pl);
+    plr->h=NodeHeight(plr);
 
-    if(b->root=p) b->root=pl;
+    if(b->root=p) b->root=plr;
 
-    return pl;
+    return plr;
 }
 
 avl* RRRotation(avl* p,root* b){
-    avl* pl=p->l;
-    avl* plr=p->r;
+    avl* pr=p->r;
+    avl* prl=p->l;
 
-    pl->r=p;
-    p->l=plr;
+    pr->l=p;
+    p->r=prl;
     p->h=NodeHeight(p);
-    pl->h=NodeHeight(pl);
+    pr->h=NodeHeight(p);
 
-    if(b->root=p) b->root=pl;
-
-    return pl;
+    if(b->root==p) b->root=pr;
+    return pr;
 
 }
 
 avl* RLRotation(avl* p,root* b){
-    avl* pl=p->l;
-    avl* plr=p->r;
+    avl* pr=p->r;
+    avl* prl=pr->l;
 
-    pl->r=p;
-    p->l=plr;
+    prl->l=p;
+    prl->r=pr;
+    pr->l=prl->r;
+    p->r=prl->l;
+    prl->h=NodeHeight(prl);
+    pr->h=NodeHeight(pr);
     p->h=NodeHeight(p);
-    pl->h=NodeHeight(pl);
 
-    if(b->root=p) b->root=pl;
+    if(b->root==p) b->root=prl;
 
-    return pl;
+    return prl;
 
 }
 
@@ -125,7 +130,7 @@ avl* RecursiveInsert(avl* n,int x,root* b){
     else if(BalanceFactor(n)==-2 && BalanceFactor(n->r)==-1){
         return RRRotation(n,b);
     }
-    else if(BalanceFactor(n)==-2 && BalanceFactor(n->l)==1){
+    else if(BalanceFactor(n)==-2 && BalanceFactor(n->r)==1){
         return RLRotation(n,b);
     }
     return n;
@@ -136,6 +141,18 @@ avl* Insert(root *b,int x){
     else{ b->root=CreateAVL(x);
         return b->root;
     }
+}
+void inorder(avl* p){
+    if(p==NULL) return;
+    inorder(p->l);
+    printf("%d ", p->x);
+    inorder(p->r);
+}
+void preorder(avl* p){
+    if(p==NULL) return;
+    printf("%d ", p->x);
+    preorder(p->l);
+    preorder(p->r);
 }
 
 #endif // MYLIB_H

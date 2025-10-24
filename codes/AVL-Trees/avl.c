@@ -4,8 +4,11 @@
 
 int main(){
     root* r=CreateRoot();
-    Insert(r,10);
-    Insert(r,5);
-    Insert(r,2);
-    printf("");
+    Insert(r,50);
+    Insert(r,100);
+    Insert(r,60);
+    inorder(r->root);
+    printf("\n");
+    //preorder(r->root);
+    //printf("\n");
 }
