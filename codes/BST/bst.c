@@ -9,6 +9,8 @@ int main(){
     for(int i=0;i<SIZE;i++){
         Insert(bst,arr[i]);
     }
+    printf("");
+    /*
     preorder(bst->root);
     printf("\n");
     inorder(bst->root);
@@ -24,5 +26,10 @@ int main(){
     printf("Height of tree %d\n",height(bst));
     DeleteNode(bst,2);
     printf("hi\n");
+    preorder(bst->root);*/
+    DeleteNode(bst,2);
     preorder(bst->root);
+    printf("\n");
+    inorder(bst->root);
+    printf("\n");
 }

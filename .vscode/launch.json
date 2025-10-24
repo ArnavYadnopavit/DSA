@@ -5,7 +5,7 @@
             "name": "(gdb) Launch",
             "type": "cppdbg",
             "request": "launch",
-            "program": "/home/arnav/git/DSA/codes/AVL-Trees/a.out",
+            "program": "/home/arnav/git/DSA/codes/BST/bst",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",

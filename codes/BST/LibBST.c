@@ -87,7 +87,7 @@ node* inPre(node* t){ //Give t->l into this
     else if (t->r==NULL){
         return t;
     }
-    else inPre(t->r);
+    return  inPre(t->r);
 }
 
 node* inSuc(node* t){ //Give t->r into this

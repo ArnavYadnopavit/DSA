@@ -112,7 +112,7 @@ node* inPre(node* t){ //Give t->l into this
     else if (t->r==NULL){
         return t;
     }
-    else inPre(t->r);
+    return inPre(t->r);
 }
 
 node* inSuc(node* t){ //Give t->r into this
@@ -122,41 +122,48 @@ node* inSuc(node* t){ //Give t->r into this
     else if (t->l==NULL){
         return t;
     }
-    else inPre(t->r);
+    return inPre(t->r);
 }
 
-node* rDelete(node* t,int key){
-    if(t==NULL){
-        return NULL;
+node* rDelete(node* t, int key) {
+    if (t == NULL) return NULL;
+
+    if (key < t->x) {
+        t->l = rDelete(t->l, key);
     }
-    else{
-        if(key<t->x){
-            t->l=rDelete(t->l,key);
-        }
-        else if(key>t->x) t->r=rDelete(t->r,key);
-        else{
-            if (t->l == NULL && t->r == NULL) {
+    else if (key > t->x) {
+        t->r = rDelete(t->r, key);
+    }
+    else {
+        // Node found
+        if (t->l == NULL && t->r == NULL) {
             free(t);
             return NULL;
         }
-            if(rheight(t->l)>rheight(t->r)){
-                node* rep=inPre(t->l);
-                t->x = rep->x;
-                t->l = rDelete(t->l, rep->x);
-            }
-            else{
-                node* rep=inSuc(t->r);
-                t->x = rep->x;
-                t->r = rDelete(t->r, rep->x);
-            }
+        else if (t->l == NULL) {
+            node* temp = t->r;
+            free(t);
+            return temp;
         }
-
+        else if (t->r == NULL) {
+            node* temp = t->l;
+            free(t);
+            return temp;
+        }
+        else {
+            // Both children exist
+            node* rep = inPre(t->l); // or inSuc(t->r)
+            t->x = rep->x;
+            t->l = rDelete(t->l, rep->x);
+        }
     }
+
     return t;
 }
 
-node* DeleteNode(BST* b, int key){
-    rDelete(b->root,key);
+node* DeleteNode(BST* b, int key) {
+    b->root = rDelete(b->root, key);
+    return b->root;
 }
 
 void preorder(node* root){
