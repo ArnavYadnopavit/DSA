@@ -41,12 +41,12 @@ void enq(queue* q,int x){
     q->size++;
 }
 
-node* deq(queue* q){
+int deq(queue* q){
     node* ret=q->head;
     if(q->size>0){
         q->head=q->head->next;
         q->size--;
     }
-    return ret;
+    return ret->x;
 }   
 #endif // MYLIB_H

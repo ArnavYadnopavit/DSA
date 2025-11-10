@@ -19,7 +19,7 @@ typedef struct queue{
 node* CreateNode(int x){
     node* new=(node*)malloc(sizeof(node));
     new->x=x;
-    new->next;
+    new->next=NULL;
     return new;
 }
 queue* CreateQueue(){
@@ -44,23 +44,27 @@ void enq(queue* q,int x){
     q->size++;
 }
 
-node* deq(queue* q){
-    node* ret=q->head;
-    if(q->size>0){
-        q->head=q->head->next;
-        q->size--;
+int deq(queue* q) {
+    if (q->size == 0 || q->head == NULL) {
+        printf("Queue is empty!\n");
+        return -1;
     }
-    return ret;
-}   
+    node* ret = q->head;
+    q->head = q->head->next;
+    q->size--;
+    int val = ret->x;
+    free(ret);
+    return val;
+} 
 //Queue Import End
 
 
 
-void BFS (int* G[],int start,int n){
+void BFS (int* G,int start,int n){
     int s=start;
     queue* q=CreateQueue();
     int visited[n];
-    for (int i=0;i<n;i++) visited[n]=0;
+    for (int i=0;i<n;i++) visited[i]=0;
     printf("%d ",s);
     visited[s]=1;
     enq(q,s);
